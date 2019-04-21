@@ -3,6 +3,24 @@ const fs = require('fs');
 
 const mainFolder = "./fedor-rusak.ru/notes/"
 
+
+console.log("### REMOVE OLD GENERATED FILES")
+
+const paths = fs.readdirSync(mainFolder);
+
+paths.forEach(
+	path => {
+		if (path.indexOf(".html") !== -1) {
+			fs.unlinkSync(mainFolder+path);
+
+			console.log("RM " + path);
+		}
+	}
+);
+
+
+console.log("\n### GENERATE NEW FILES")
+
 const contentIndexString =  fs.readFileSync(mainFolder+"content/index.json");
 
 const contentIndex = JSON.parse(contentIndexString);
@@ -31,7 +49,7 @@ contentIndex.forEach(
 			separatorLength = 2;
 			indexOfDataSeparator = postData.indexOf("\n\n");
 		}
-
+  
 
 		const localizedName = postData.substring(0, indexOfDataSeparator);
 
@@ -94,10 +112,10 @@ let newContentPage = contentPageTemplate
 let fd = fs.openSync(mainFolder+"content.html", 'w+');
 fs.appendFileSync(fd, newContentPage, 'utf8');
 
-console.log(">>> content.html");
+console.log("\n>>> content.html");
 
 
 fd = fs.openSync(mainFolder+"latest.html", 'w+');
 fs.appendFileSync(fd, latestContent, 'utf8');
 
-console.log(">>> latest.html");
+console.log("\n>>> latest.html");
