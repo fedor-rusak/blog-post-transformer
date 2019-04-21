@@ -13,6 +13,9 @@ Use nodeJS to make transformation of text files into final blog post html pages.
 
 ## History
 
+### 1.0.3
+ - content page rendered!
+
 ### 1.0.2
  - script now makes simple template-based rendering of page from contentIndex file
 

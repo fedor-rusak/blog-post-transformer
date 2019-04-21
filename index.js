@@ -9,6 +9,8 @@ const contentIndex = JSON.parse(contentIndexString);
 
 const pageTemplate =  fs.readFileSync(mainFolder+"templates/page.html.template").toString();
 
+let localizedPageNames = {};
+
 contentIndex.forEach(
 	blogPostContent => {
 		const postName = blogPostContent.name;
@@ -41,9 +43,48 @@ contentIndex.forEach(
 			.replace("%CONTENT%", content);
 
 
-		let fd = fs.openSync("./fedor-rusak.ru/notes/"+postName+".html", 'w+');
-  		fs.appendFileSync(fd, newPage, 'utf8');
+		let fd = fs.openSync(mainFolder+postName+".html", 'w+');
+		fs.appendFileSync(fd, newPage, 'utf8');
 
 		console.log(">>> "+postName+".html");
+
+		//for content page
+		localizedPageNames[postName] = localizedName;
 	}
 );
+
+
+const contentItemTemplate =  fs.readFileSync(mainFolder+"templates/content.item.template").toString();
+
+let contentPageNewContent = "";
+
+contentIndex.forEach(
+	blogPostContent => {
+		const postName = blogPostContent.name;
+		const date = blogPostContent.date;
+		const dateString = blogPostContent.date_string;
+
+
+		let newItem = contentItemTemplate
+			.replace("%PAGE_NAME%", postName)
+			.replace("%PAGE_HEADER%", localizedPageNames[postName])
+			.replace("%PAGE_DATE%", date)
+			.replace("%PAGE_DATE_STRING%", dateString)
+
+		if (contentPageNewContent !== "") {
+			contentPageNewContent += "\n";
+		}
+
+		contentPageNewContent += newItem;
+	}
+);
+
+const contentPageTemplate =  fs.readFileSync(mainFolder+"templates/content.html.template").toString();
+
+let newContentPage = contentPageTemplate
+	.replace("%CONTENT%", contentPageNewContent);
+
+let fd = fs.openSync(mainFolder+"content.html", 'w+');
+fs.appendFileSync(fd, newContentPage, 'utf8');
+
+console.log(">>> content.html");
