@@ -11,8 +11,10 @@ const pageTemplate =  fs.readFileSync(mainFolder+"templates/page.html.template")
 
 let localizedPageNames = {};
 
+let latestContent;
+
 contentIndex.forEach(
-	blogPostContent => {
+	(blogPostContent, index) => {
 		const postName = blogPostContent.name;
 		const date = blogPostContent.date;
 		const dateString = blogPostContent.date_string;
@@ -50,6 +52,11 @@ contentIndex.forEach(
 
 		//for content page
 		localizedPageNames[postName] = localizedName;
+
+		//for latest
+		if (index === 0) {
+			latestContent = newPage;
+		}
 	}
 );
 
@@ -88,3 +95,9 @@ let fd = fs.openSync(mainFolder+"content.html", 'w+');
 fs.appendFileSync(fd, newContentPage, 'utf8');
 
 console.log(">>> content.html");
+
+
+fd = fs.openSync(mainFolder+"latest.html", 'w+');
+fs.appendFileSync(fd, latestContent, 'utf8');
+
+console.log(">>> latest.html");
