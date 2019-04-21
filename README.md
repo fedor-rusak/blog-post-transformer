@@ -6,3 +6,13 @@ I need a simple way to style my blog post entries in html pages I like. My perso
 ## Before using
 
 Remember to download actual site [sources](https://github.com/fedor-rusak/fedor-rusak.ru) before running any scripts. Don't worry it is ignore by *.gitignore*.
+
+## Idea
+
+Use nodeJS to make transformation of text files into final blog post html pages.
+
+## History
+
+### 1.0.1
+
+ - initial package stuff
