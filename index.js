@@ -1,7 +1,7 @@
 "use strict";
 const fs = require('fs');
 
-const mainFolder = "./fedor-rusak.ru/notes/"
+const mainFolder = process.argv[2];"./fedor-rusak.ru/notes/"
 
 
 console.log("### REMOVE OLD GENERATED FILES")

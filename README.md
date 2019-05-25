@@ -21,6 +21,10 @@ NodeJs ~ 8
 
 ## History
 
+### 1.1.1
+ - Folder with scripts specified as argument.
+ - Docker for running transformation!
+
 ### 1.1.0
  - Old generated files removed before rendering!
 
